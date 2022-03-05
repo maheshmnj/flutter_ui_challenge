@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_challenge/constants/constants.dart';
 import 'package:flutter_ui_challenge/widgets/appbar.dart';
+import 'package:flutter_ui_challenge/widgets/gridtile.dart';
+import 'package:flutter_ui_challenge/widgets/new_header.dart';
 import 'package:flutter_ui_challenge/widgets/search.dart';
 import 'package:flutter_ui_challenge/widgets/tabbar.dart';
 import 'package:flutter_ui_challenge/widgets/widgets.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Home> createState() => _HomeState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeState extends State<Home> {
   late String selected;
   @override
   void initState() {
@@ -23,8 +25,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-          body: SingleChildScrollView(
+      child: Material(
+          child: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
@@ -81,62 +83,50 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             ),
-            NewArrivals(
+            NewArrivalsHeader(
               onTap: () {
                 print('new arrivals');
               },
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(size_ex_lg_24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Popular Products 🔥',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  Text(
+                    'See All',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(color: pink),
+                  )
+                ],
+              ),
+            ),
+            GridView.builder(
+                shrinkWrap: true,
+                itemCount: 6,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: size_ex_lg_24, vertical: size_ex_lg_24),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 160 / 218,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 6),
+                itemBuilder: (_, index) {
+                  return const KGridTile(
+                      image: '$assetsPath/clock_dark_pink.png',
+                      title: 'Clock title',
+                      price: 250);
+                })
           ],
         ),
       )),
     );
-  }
-}
-
-class NewArrivals extends StatefulWidget {
-  final Function? onTap;
-  const NewArrivals({Key? key, this.onTap}) : super(key: key);
-
-  @override
-  _NewArrivalsState createState() => _NewArrivalsState();
-}
-
-class _NewArrivalsState extends State<NewArrivals> {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => widget.onTap!.call(),
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: size_md_6 * 3,
-              ),
-              child: Container(
-                height: 160,
-                margin: const EdgeInsets.symmetric(horizontal: size_ex_lg_24),
-                decoration: BoxDecoration(
-                  color: pink,
-                  borderRadius: BorderRadius.circular(size_sm_4 * 8),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 40,
-              left: size_ex_lg_24 * 2,
-              child: Text('New\nArrivals',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.white)),
-            ),
-            Positioned(
-                top: 0,
-                right: size_md_6 * 4,
-                child: Image.asset(
-                  '$assetsPath/clock_dark.png',
-                  height: 140,
-                ))
-          ],
-        ));
   }
 }

@@ -11,10 +11,11 @@ BoxShadow shadowLight = BoxShadow(
     blurRadius: 5,
     spreadRadius: 1,
     offset: const Offset(0, 1));
+
 BoxShadow searchShadow = BoxShadow(
     color: Colors.black.withOpacity(0.1),
     blurRadius: size_ex_lg_24,
     spreadRadius: 0,
     offset: const Offset(0, 6));
 
-
+BorderRadius defaultRadius = BorderRadius.circular(circle_radius);

@@ -56,9 +56,17 @@ class KIcon extends StatelessWidget {
   final Widget icon;
   final String? label;
   final Color labelColor;
+  final Color color;
   final Function? onTap;
+  final double? size;
+
   const KIcon(this.icon,
-      {Key? key, this.label, this.onTap, this.labelColor = black})
+      {Key? key,
+      this.label,
+      this.onTap,
+      this.size,
+      this.labelColor = black,
+      this.color = Colors.white})
       : super(key: key);
 
   @override
@@ -70,11 +78,12 @@ class KIcon extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
+              height: size,
+              width: size,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    shadowLight
-                  ],
+                  color: color,
+                  boxShadow: [shadowLight],
                   borderRadius: BorderRadius.circular(size_sm_4 * 2.5)),
               padding: const EdgeInsets.all(size_sm_4 * 2),
               child: icon,
