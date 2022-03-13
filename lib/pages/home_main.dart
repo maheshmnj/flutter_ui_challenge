@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_challenge/constants/constants.dart';
+import 'package:flutter_ui_challenge/pages/navigation/cart.dart';
 import 'package:flutter_ui_challenge/pages/navigation/home.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,20 +13,25 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   int index = 0;
+  final Color selectedColor = pink;
   @override
   Widget build(BuildContext context) {
-    List<BottomNavBarItem> _items = const [
+    List<BottomNavBarItem> _items = [
       BottomNavBarItem(
-        child: Icon(CupertinoIcons.home, color: Colors.white),
+        child: Icon(CupertinoIcons.home,
+            color: index == 0 ? selectedColor : Colors.white),
       ),
       BottomNavBarItem(
-        child: Icon(CupertinoIcons.heart, color: Colors.white),
+        child: Icon(CupertinoIcons.heart,
+            color: index == 1 ? selectedColor : Colors.white),
       ),
       BottomNavBarItem(
-        child: Icon(CupertinoIcons.bag, color: Colors.white),
+        child: Icon(CupertinoIcons.bag,
+            color: index == 2 ? selectedColor : Colors.white),
       ),
       BottomNavBarItem(
-        child: Icon(CupertinoIcons.person_fill, color: Colors.white),
+        child: Icon(CupertinoIcons.person_fill,
+            color: index == 3 ? selectedColor : Colors.white),
       ),
     ];
     return Material(
@@ -40,11 +46,7 @@ class MyHomePageState extends State<MyHomePage> {
               color: Colors.accents[index],
               child: const Text('Favourate'),
             ),
-            Container(
-              alignment: Alignment.center,
-              color: Colors.accents[index],
-              child: const Text('Explore'),
-            ),
+            Cart(),
             Container(
               alignment: Alignment.center,
               color: Colors.accents[index],
@@ -58,6 +60,7 @@ class MyHomePageState extends State<MyHomePage> {
           right: 0,
           child: KBottomNavigation(
               hasLabel: false,
+              index: index,
               onChange: (x) {
                 setState(() {
                   index = x;
@@ -76,11 +79,15 @@ class KBottomNavigation extends StatefulWidget {
   final bool hasLabel;
   final Color backgroundColor;
 
+  /// selected index;
+  final int index;
+
   const KBottomNavigation(
       {Key? key,
       required this.children,
       this.onChange,
       this.hasLabel = false,
+      required this.index,
       this.backgroundColor = black})
       : super(key: key);
 
@@ -102,7 +109,8 @@ class _KBottomNavigationState extends State<KBottomNavigation> {
             onTap: () {
               widget.onChange?.call(i);
             },
-            child: Container(
+            child: Transform.scale(
+              scale: i == widget.index ? 1.2 : 1,
               child: widget.children[i].child,
             ),
           )

@@ -26,6 +26,8 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             headline2: GoogleFonts.montserrat(
                 fontSize: 34, fontWeight: FontWeight.bold, color: Colors.white),
+            headline3: GoogleFonts.dmSans(
+                fontSize: 24, fontWeight: FontWeight.w700, color: Colors.black),
             headline4: GoogleFonts.dmSans(
                 fontSize: 18, fontWeight: FontWeight.bold, color: black),
             headline5: GoogleFonts.dmSans(
