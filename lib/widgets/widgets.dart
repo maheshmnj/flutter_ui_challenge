@@ -71,7 +71,7 @@ class KIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => onTap!(),
       child: Stack(
         children: [
@@ -84,7 +84,7 @@ class KIcon extends StatelessWidget {
               decoration: BoxDecoration(
                   color: color,
                   boxShadow: [shadowLight],
-                  borderRadius: BorderRadius.circular(size_sm_4 * 2.5)),
+                  borderRadius: BorderRadius.circular(size_sm_4 * 2)),
               padding: const EdgeInsets.all(size_sm_4 * 2),
               child: icon,
             ),
